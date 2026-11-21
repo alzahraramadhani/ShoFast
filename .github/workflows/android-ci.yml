@@ -1,0 +1,77 @@
+name: Android CI (Kotlin & Jetpack Compose)
+
+on:
+  push:
+    branches:
+      - main
+      - "feat/**"
+      - "fix/**"
+      - "style/**"
+      - "ci/**"
+    paths:
+      - "android/**"
+      - ".github/workflows/android-ci.yml"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "android/**"
+      - ".github/workflows/android-ci.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    name: Gradle Lint, Unit Test & Debug APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check if Android Gradle project is initialized
+        id: check_android
+        run: |
+          if [ -f "android/gradlew" ]; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+            echo "Skipping Android CI: android/gradlew not created yet."
+          fi
+
+      - name: Set up JDK 17 (Temurin)
+        if: steps.check_android.outputs.exists == 'true'
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "17"
+
+      - name: Setup Gradle
+        if: steps.check_android.outputs.exists == 'true'
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-home-cache-cleanup: true
+
+      - name: Grant execute permission for gradlew
+        if: steps.check_android.outputs.exists == 'true'
+        working-directory: android
+        run: chmod +x ./gradlew
+
+      - name: Run Android Lint & Unit Tests
+        if: steps.check_android.outputs.exists == 'true'
+        working-directory: android
+        run: ./gradlew lintDebug testDebugUnitTest --stacktrace
+
+      - name: Build Debug APK
+        if: steps.check_android.outputs.exists == 'true'
+        working-directory: android
+        run: ./gradlew assembleDebug --stacktrace
+
+      - name: Upload Debug APK Artifact
+        if: steps.check_android.outputs.exists == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: shofast-debug-apk
+          path: android/app/build/outputs/apk/debug/*.apk
+          retention-days: 14
