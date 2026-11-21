@@ -1,0 +1,48 @@
+# ==============================================================================
+# ShoFast .gitattributes — Normalisasi Line Endings Cross-OS (Windows + Linux)
+# ==============================================================================
+
+* text=auto eol=lf
+
+# File kode sumber & konfigurasi wajib LF (agar kompatibel dengan Docker Linux & CI)
+*.py text eol=lf
+*.kt text eol=lf
+*.kts text eol=lf
+*.java text eol=lf
+*.xml text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.toml text eol=lf
+*.md text eol=lf
+*.sql text eol=lf
+*.sh text eol=lf
+Dockerfile text eol=lf
+gradlew text eol=lf
+.gitignore text eol=lf
+.gitattributes text eol=lf
+
+# Skrip khusus Windows menggunakan CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+gradlew.bat text eol=crlf
+
+# File biner (tidak boleh diubah line-ending-nya)
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.webp binary
+*.gif binary
+*.ico binary
+*.svg binary
+*.ttf binary
+*.otf binary
+*.woff binary
+*.woff2 binary
+*.jar binary
+*.apk binary
+*.aab binary
+*.jks binary
+*.keystore binary
+*.mp4 binary

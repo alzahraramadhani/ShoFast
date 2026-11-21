@@ -1,0 +1,17 @@
+name: Feature Request
+description: Usulkan fitur baru atau peningkatan anti-bot / UI untuk ShoFast
+title: "[FEAT] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Ringkasan Fitur yang Diusulkan
+      description: Jelaskan fitur atau peningkatan yang kamu inginkan.
+    validations:
+      required: true
+  - type: textarea
+    id: antibot_impact
+    attributes:
+      label: Dampak terhadap Keamanan Anti-Bot & Desain Figma
+      description: Pastikan usulan fitur tetap mematuhi aturan keamanan anti-bot di AGENTS.md.

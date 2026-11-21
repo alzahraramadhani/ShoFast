@@ -1,0 +1,38 @@
+name: Bug Report
+description: Laporkan bug pada Backend FastAPI, Aplikasi Android, atau Accessibility Service
+title: "[BUG] "
+labels: ["bug"]
+body:
+  - type: dropdown
+    id: component
+    attributes:
+      label: Komponen Terdampak
+      options:
+        - Android UI (Jetpack Compose)
+        - Android Accessibility Service (com.shopee.id)
+        - Backend FastAPI / yt-dlp / FFmpeg
+        - AI Caption / Scheduler
+        - Supabase Database
+        - CI/CD Pipeline
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Deskripsi Masalah
+      description: Jelaskan bug yang terjadi secara detail.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Langkah Reproduksi
+      placeholder: |
+        1. Buka halaman Studio / Batch
+        2. Masukkan link TikTok...
+        3. Error muncul di...
+  - type: textarea
+    id: logs
+    attributes:
+      label: Log Error / Versi Aplikasi Shopee
+      description: Tempelkan log FastAPI atau pesan dari automation_logs (jangan sertakan API key/credential!).
